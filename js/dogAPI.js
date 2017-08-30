@@ -1,3 +1,10 @@
+// Variables
+let $breeds = $(".breeds");
+let $dogName = $("#dog_name");
+let $dogImg = $("#dog_img");
+let $dogInfo = $("#dog_info");
+let list = ""
+
 // Initial API call to populate dog breed data
 let dogBreedsAPICall = new Promise((resolve, reject) => {
     fetch('https://dog.ceo/api/breeds/list')
@@ -19,22 +26,17 @@ let dogBreedsAPICall = new Promise((resolve, reject) => {
  */
 dogBreedsAPICall.then((res) => {
     getDog(res);
+    list = $(".breeds").eq(0).children().text();
 })
     .catch((err) => {
         console.log(err);
     });
 
-let clickedBreed = "";
-// Get dog on click
-$(".breeds").on("click", "li", function(){
-    clickedBreed = $(this).text().trim();
-    getDog(clickedBreed);
-    getDogInfo();
-});
 
-function getDogInfo() {
-    specialCases(clickedBreed);
-    let apiCall = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=${clickedBreed}&indexpageids=&redirects=1`;
+// Wiki API call to get dog info
+function getDogInfo(dog) {
+    let theDog = specialCases(dog);
+    let apiCall = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=${theDog}&indexpageids=&redirects=1`;
 
     $.ajax({
         url: apiCall,
@@ -52,132 +54,137 @@ function getDogInfo() {
 function extract(info) {
     let pageID = info.query.pageids[0];
     let extract = info.query.pages[pageID].extract;
-    let extractSentences = extract.split(".");
-    $("#dog_info").text(`${extractSentences[0]}. ${extractSentences[1]}.`);
-}
-
-// special cases for breeds with multiple wiki references
-function specialCases() {
-    switch (true) {
-        case (clickedBreed === 'african'):
-            clickedBreed += ' wild dog';
-            break;
-        case (clickedBreed === 'airedale'):
-            clickedBreed += ' terrier';
-            break;
-        case (clickedBreed === 'akita'):
-            clickedBreed += ' (dog)';
-            break;
-        case (clickedBreed === 'appenzeller'):
-            clickedBreed = 'Appenzeller_Sennenhund';
-            break;
-        case (clickedBreed === 'bouvier'):
-            clickedBreed = 'Bouvier_des_Flandres';
-            break;
-        case (clickedBreed === 'boxer'):
-            clickedBreed = 'Boxer_(dog)';
-            break;
-        case (clickedBreed === 'brabancon'):
-            clickedBreed = 'Griffon Bruxellois';
-            break;
-        case (clickedBreed === 'cairn'):
-            clickedBreed += ' terrier';
-            break;
-        case (clickedBreed === 'chihuahua'):
-            clickedBreed += ' (dog)';
-            break;
-        case (clickedBreed === 'chow'):
-            clickedBreed = 'chow chow';
-            break;
-        case (clickedBreed === 'clumber'):
-            clickedBreed += ' spaniel';
-            break;
-        case (clickedBreed === 'corgi'):
-            clickedBreed = 'Welsh_Corgi';
-            break;
-        case (clickedBreed === 'dane'):
-            clickedBreed = 'Great_Dane';
-            break;
-        case (clickedBreed === 'eskimo'):
-            clickedBreed = 'American_Eskimo_Dog';
-            break;
-        case (clickedBreed === 'germanshepherd'):
-            clickedBreed = 'German_Shepherd';
-            break;
-        case (clickedBreed === 'kelpie'):
-            clickedBreed = 'Australian_Kelpie';
-            break;
-        case (clickedBreed === 'labrador'):
-            clickedBreed = 'Labrador_Retriever';
-            break;
-        case (clickedBreed === 'leonberg'):
-            clickedBreed = 'leonberger';
-            break;
-        case (clickedBreed === 'lhasa'):
-            clickedBreed = 'Lhasa Apso';
-            break;
-        case (clickedBreed === 'malinois'):
-            clickedBreed = 'Malinois_dog';
-            break;
-        case (clickedBreed === 'maltese'):
-            clickedBreed = 'Maltese_(dog)';
-            break;
-        case (clickedBreed === 'mastiff'):
-            clickedBreed = 'English_Mastiff';
-            break;
-        case (clickedBreed === 'mexicanhairless'):
-            clickedBreed = 'Mexican_Hairless_Dog';
-            break;
-        case (clickedBreed === 'mountain'):
-            clickedBreed = 'Bernese_Mountain_Dog';
-            break;
-        case (clickedBreed === 'newfoundland'):
-            clickedBreed = 'Newfoundland_(dog)';
-            break;
-        case (clickedBreed === 'papillon'):
-            clickedBreed = 'Papillon_(dog)';
-            break;
-        case (clickedBreed === 'pembroke'):
-            clickedBreed = 'Pembroke_Welsh_Corgi';
-            break;
-        case (clickedBreed === 'pointer'):
-            clickedBreed = 'Pointer_(dog_breed)';
-            break;
-        case (clickedBreed === 'pomeranian'):
-            clickedBreed = 'Pomeranian_(dog)';
-            break;
-        case (clickedBreed === 'pyrenees'):
-            clickedBreed = 'Great_Pyrenees';
-            break;
-        case (clickedBreed === 'ridgeback'):
-            clickedBreed = 'Rhodesian_Ridgeback';
-            break;
-        case (clickedBreed === 'samoyed'):
-            clickedBreed = 'Samoyed_(dog)';
-            break;
-        case (clickedBreed === 'shiba'):
-            clickedBreed = 'Shiba_Inu';
-            break;
-        case (clickedBreed === 'springer'):
-            clickedBreed = 'English_Springer_Spaniel';
-            break;
-        case (clickedBreed === 'stbernard'):
-            clickedBreed = 'St._Bernard_(dog)';
-            break;
-        case (clickedBreed === 'wolfhound'):
-            clickedBreed = 'Irish_Wolfhound';
-            break;
+    let extractSentences = extract.split(". ");
+    if (extractSentences.length > 1) {
+        $dogInfo.text(`${extractSentences[0]}. ${extractSentences[1]}.`);
+    } else {
+        $dogInfo.text(`${extractSentences[0]}`);
     }
 }
 
+// special cases for breeds with multiple wiki references
+function specialCases(dog) {
+    switch (dog) {
+        case ('african'):
+            dog = 'african wild dog';
+            break;
+        case ('airedale'):
+            dog += ' terrier';
+            break;
+        case ('akita'):
+            dog += ' (dog)';
+            break;
+        case ('appenzeller'):
+            dog = 'Appenzeller_Sennenhund';
+            break;
+        case ('bouvier'):
+            dog = 'Bouvier_des_Flandres';
+            break;
+        case ('boxer'):
+            dog = 'Boxer_(dog)';
+            break;
+        case ('brabancon'):
+            dog = 'Griffon Bruxellois';
+            break;
+        case ('cairn'):
+            dog += ' terrier';
+            break;
+        case ('chihuahua'):
+            dog += ' (dog)';
+            break;
+        case ('chow'):
+            dog = 'chow chow';
+            break;
+        case ('clumber'):
+            dog += ' spaniel';
+            break;
+        case ('corgi'):
+            dog = 'Welsh_Corgi';
+            break;
+        case ('dane'):
+            dog = 'Great_Dane';
+            break;
+        case ('eskimo'):
+            dog = 'American_Eskimo_Dog';
+            break;
+        case ('germanshepherd'):
+            dog = 'German_Shepherd';
+            break;
+        case ('kelpie'):
+            dog = 'Australian_Kelpie';
+            break;
+        case ('labrador'):
+            dog = 'Labrador_Retriever';
+            break;
+        case ('leonberg'):
+            dog = 'leonberger';
+            break;
+        case ('lhasa'):
+            dog = 'Lhasa Apso';
+            break;
+        case ('malinois'):
+            dog = 'Malinois_dog';
+            break;
+        case ('maltese'):
+            dog = 'Maltese_(dog)';
+            break;
+        case ('mastiff'):
+            dog = 'English_Mastiff';
+            break;
+        case ('mexicanhairless'):
+            dog = 'Mexican_Hairless_Dog';
+            break;
+        case ('mountain'):
+            dog = 'Bernese_Mountain_Dog';
+            break;
+        case ('newfoundland'):
+            dog = 'Newfoundland_(dog)';
+            break;
+        case ('papillon'):
+            dog = 'Papillon_(dog)';
+            break;
+        case ('pembroke'):
+            dog = 'Pembroke_Welsh_Corgi';
+            break;
+        case ('pointer'):
+            dog = 'Pointer_(dog_breed)';
+            break;
+        case ('pomeranian'):
+            dog = 'Pomeranian_(dog)';
+            break;
+        case ('pyrenees'):
+            dog = 'Great_Pyrenees';
+            break;
+        case ('ridgeback'):
+            dog = 'Rhodesian_Ridgeback';
+            break;
+        case ('samoyed'):
+            dog = 'Samoyed_(dog)';
+            break;
+        case ('shiba'):
+            dog = 'Shiba_Inu';
+            break;
+        case ('springer'):
+            dog = 'English_Springer_Spaniel';
+            break;
+        case ('stbernard'):
+            dog = 'St._Bernard_(dog)';
+            break;
+        case ('wolfhound'):
+            dog = 'Irish_Wolfhound';
+            break;
+    }
+    return dog;
+}
 
 
 // fill in data for side nav
 function populateBreedList(breeds) {
     for (let breed of breeds) {
-        $(".breeds").append(`<li><a href="#"><i class="fa fa-paw fa-lg" aria-hidden="true"></i> ${breed}</a></li>`)
+        $breeds.append(`<li><a href="#!"><i class="fa fa-paw fa-lg" aria-hidden="true"></i> ${breed}</a></li>`)
     }
 }
+
 
 // get dog on page load
 function getDog(dogs) {
@@ -187,14 +194,10 @@ function getDog(dogs) {
         .then((res) => {
             res.json().then((data) => {
                 let imgSrc = data.message;
-                $("#dog_name").text(dog);
-                $("#dog_img").attr("src", imgSrc);
+                $dogName.text(dog);
+                $dogImg.attr("src", imgSrc);
+                getDogInfo(dog);
             })
         });
 }
 
-
-// get random item from array
-function getRandom(items) {
-    return items[Math.floor(Math.random()*items.length)];
-}

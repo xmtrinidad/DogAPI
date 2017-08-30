@@ -1,7 +1,14 @@
-
-
 // TODO learn how to search a list while typing
-// TODO get dog info using wiki api
 
+// Get dog on click
+$(".breeds").on("click", "li", function(){
+    console.log("clicked");
+    let clickedBreed = $(this).text().trim();
+    getDog(clickedBreed);
+    getDogInfo(clickedBreed);
+});
 
-
+// get random item from array
+function getRandom(items) {
+    return items[Math.floor(Math.random()*items.length)];
+}
