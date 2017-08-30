@@ -1,0 +1,120 @@
+nav {
+  background: #feba01;
+  .nav_container {
+    color: #fff;
+    width: 97%;
+    margin: auto;
+    padding: 8px;
+  }
+}
+
+// Desktop nav hidden on mobile
+section.desktop_nav {
+  display: none;
+}
+
+// Shared side nav styles
+.side_nav {
+  color: #000;
+  text-transform: capitalize;
+  .logo{
+    text-align: center;
+    padding: 10px 0;
+    img {
+      width: 88px;
+    }
+  }
+  .breeds {
+    margin: 8px 0;
+    li {
+      width: 97%;
+      margin-top: 5px;
+      border-bottom: 2px solid lightgray;
+      a {
+        display: block;
+        padding: 12px;
+        &:hover {
+          background: slategray;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.mobile_nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // Ham icon
+  .menu i {
+    font-size: 2.5rem;
+  }
+  // slide in/out nav
+  .side_nav {
+    position: absolute;
+    top: 0;
+    left: -800px;
+    width: 70%;
+    height: 100%;
+    overflow: auto;
+    max-width: 330px;
+    padding: 15px 0;
+    z-index: 2;
+    background: whitesmoke;
+    transition: .5s left;
+    .close_btn {
+      position: absolute;
+      cursor: pointer;
+      display: flex;
+      top: 10px;
+      left: 18px;
+      i {
+        font-size: 2.4rem;
+      }
+    }
+  }
+}
+
+.overlay {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transition: background .5s, opacity .5s;
+}
+
+// Transition class
+.show_menu {
+  left: 0 !important;
+}
+
+.show_overlay {
+  background: rgba(0,0,0,.8);
+  opacity: 1;
+  z-index: 1;
+}
+
+.noscroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .menu, .mobile_nav.side_nav {
+    display: none;
+  }
+  section.desktop_nav {
+    display: block;
+    border-right: 2px solid lightgray;
+    overflow: auto;
+    .logo img {
+      width: 90px;
+    }
+    ul {
+      padding: 0;
+    }
+    height: auto;
+  }
+}

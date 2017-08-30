@@ -1,0 +1,62 @@
+section.dog_info {
+  margin: 50px auto;
+  .search {
+    position: relative;
+    .search_icon {
+      cursor: pointer;
+      color: #df8d51;
+      position: absolute;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      right: 0;
+      top: 0;
+      padding: 10px;
+    }
+    // Search box
+    input {
+      background: whitesmoke;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-radius: 0;
+      border-bottom: 3px solid #da7d37;
+    }
+  }
+}
+
+.box {
+  box-shadow: 2px 4px 15px 3px lightgray;
+  background: #fff;
+  border-radius: 5px;
+  margin: 30px 0;
+  padding: 10px;
+  .dog_img_section {
+    text-align: center;
+  }
+  #dog_name {
+    text-transform: capitalize;
+  }
+  .more {
+    text-align: center;
+    margin: 20px 0;
+    a {
+      background: none;
+      color: #da7d37;
+      border: 2px solid #da7d37;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .search {
+    width: 55%;
+    margin: auto;
+  }
+  .box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 30px;
+    align-items: center;
+  }
+}

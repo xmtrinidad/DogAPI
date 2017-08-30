@@ -1,0 +1,25 @@
+@import "default";
+@import "nav";
+@import "dog-info";
+
+html, body {
+  height: 100%;
+}
+
+main {
+  height: 100%;
+}
+
+
+
+@media (min-width: 768px) {
+  main {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-column-gap: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+}

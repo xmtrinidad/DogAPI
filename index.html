@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/73ef1a17f6.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Dog API - Promise Practice</title>
+</head>
+<body>
+
+<nav>
+    <div class="nav_container">
+        <div class="mobile_nav">
+            <div class="menu">
+                <a href="#"><i class="material-icons">menu</i></a>
+            </div>
+            <div class="nav_title">
+                <h3>Dog API</h3>
+            </div>
+            <div class="side_nav">
+                <div class="close_btn">
+                    <i class="large material-icons">close</i>
+                </div>
+                <div class="logo">
+                    <div class="img_container">
+                        <img src="https://dog.ceo/img/dog-api-logo.svg" alt="dog">
+                    </div>
+                    <h2>Dog API</h2>
+                </div>
+                <ul class="breeds">
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="overlay"></div>
+
+<main>
+    <section class="desktop_nav">
+        <div class="side_nav">
+            <div class="logo">
+                <div class="img_container">
+                    <img src="https://dog.ceo/img/dog-api-logo.svg" alt="dog">
+                </div>
+            </div>
+            <ul class="breeds">
+            </ul>
+        </div>
+    </section>
+    <section class="dog_info container">
+        <div class="search">
+            <i class="fa fa-search search_icon fa-lg" aria-hidden="true"></i>
+            <input class="form-control form-control-lg" type="text" placeholder="Search for breed">
+        </div>
+        <div class="box">
+            <div class="dog_img_section">
+                <div>
+                    <img id="dog_img" class="img-fluid" src=""
+                         alt="dog image">
+                </div>
+            </div>
+            <div class="dog_info_section">
+                <div>
+                    <h2 id="dog_name" class="text-center"></h2>
+                    <p id="dog_info">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Accusantium aperiam illo ut! Ab adipisci aliquam commodi ea earum,
+                        eos esse est fuga harum ipsam iure iusto minima, nesciunt
+                        officia omnis quaerat saepe totam velit veniam vero. Consectetur quasi
+                        quos soluta vel voluptatem! Ab aliquam aut ea, eos error eveniet,
+                        laborum magni nesciunt numquam perspiciatis rem saepe sapiente
+                        similique veniam voluptatem! Assumenda commodi eligendi enim,
+                        eos id iste itaque laudantium neque, officia quaerat quos similique velit.
+                    </p>
+                </div>
+                <div class="more">
+                    <a href="#" class="btn btn-primary btn-lg">More Info</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="js/navmenu.js"></script>
+<script src="js/dogAPI.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
