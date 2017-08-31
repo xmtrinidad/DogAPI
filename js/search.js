@@ -1,30 +1,25 @@
 let $input = $(".search input");
 
-function myFunction() {
-    // Declare variables
-    let filter, i;
-    filter = $input.val().toLowerCase();
-    let items = $(".breeds").eq(0).children();
+let inputVal = "";
+$input.on("keypress", function(e){
+    inputVal += String.fromCharCode(e.keyCode);
+    // Check if input val is empty or user deleted input
+    if ($(this).val() === "") {
+        inputVal = "";
+    }
+    searchFilter(inputVal);
+});
 
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < items.length; i++) {
-        a = items[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toLowerCase().indexOf(filter) > -1) {
-            console.log(a);
-            $input.val(a.innerText);
-            items[i].style.display = "";
+function searchFilter(input) {
+    let items = $(".breeds").eq(0).children();
+    // reset list items
+    $(".options").empty();
+    for (let i = 0; i < items.length; i++) {
+        item = items[i].innerText;
+        if (item.toLowerCase().indexOf(input.toLowerCase()) > -1 && inputVal.length > 1) {
+            $(".options").append(`<li><a href="#!"><i class="fa fa-paw fa-lg" aria-hidden="true"></i> ${item}</a></li>`);
         } else {
             items[i].style.display = "none";
         }
     }
 }
-    let inputVal = "";
-$input.on("keypress", function(e){
-    // Check if input val is empty or user deleted input
-    if ($(this).val() === "") {
-        inputVal = "";
-    }
-    inputVal += String.fromCharCode(e.keyCode);
-    console.log(inputVal);
-    myFunction();
-});

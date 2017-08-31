@@ -146,6 +146,15 @@ section.dog_info {
       color: #da7d37;
       border: 2px solid #da7d37; }
 
+.search_results {
+  text-transform: capitalize; }
+  .search_results .options li a {
+    padding: 5px;
+    display: block; }
+    .search_results .options li a:hover {
+      background: slategray;
+      color: #fff; }
+
 @media (min-width: 1200px) {
   .search {
     width: 55%;
