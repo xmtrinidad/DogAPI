@@ -2,6 +2,7 @@
 $(".menu").on("click", showMenu);
 $(".close_btn").on("click", closeMenu);
 $(".overlay").on("click", closeMenu);
+$("")
 
 
 function showMenu() {

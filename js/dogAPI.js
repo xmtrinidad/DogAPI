@@ -1,10 +1,3 @@
-// Variables
-let $breeds = $(".breeds");
-let $dogName = $("#dog_name");
-let $dogImg = $("#dog_img");
-let $dogInfo = $("#dog_info");
-let list = ""
-
 // Initial API call to populate dog breed data
 let dogBreedsAPICall = new Promise((resolve, reject) => {
     fetch('https://dog.ceo/api/breeds/list')
@@ -26,7 +19,6 @@ let dogBreedsAPICall = new Promise((resolve, reject) => {
  */
 dogBreedsAPICall.then((res) => {
     getDog(res);
-    list = $(".breeds").eq(0).children().text();
 })
     .catch((err) => {
         console.log(err);
@@ -37,7 +29,7 @@ dogBreedsAPICall.then((res) => {
 function getDogInfo(dog) {
     let theDog = specialCases(dog);
     let apiCall = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=${theDog}&indexpageids=&redirects=1`;
-
+    console.log(apiCall);
     $.ajax({
         url: apiCall,
         dataType: 'jsonp',
@@ -50,16 +42,19 @@ function getDogInfo(dog) {
     });
 }
 
+
 // get extract from API call
 function extract(info) {
     let pageID = info.query.pageids[0];
     let extract = info.query.pages[pageID].extract;
+    let title = info.query.pages[pageID].title;
     let extractSentences = extract.split(". ");
     if (extractSentences.length > 1) {
         $dogInfo.text(`${extractSentences[0]}. ${extractSentences[1]}.`);
     } else {
         $dogInfo.text(`${extractSentences[0]}`);
     }
+    $moreInfo.attr("href", `https://en.wikipedia.org/wiki/${title}`);
 }
 
 // special cases for breeds with multiple wiki references
