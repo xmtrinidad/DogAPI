@@ -1,31 +1,25 @@
 
-
-
-
 let inputVal = "";
+const enterBtn = 13; // enter button charCode
 $input.on("keydown", function(e){
     // if enter is clicked and search results is down to one, enter clicks on that item
-    if (e.which == 13 && $options.children().length === 1) {
-        $options.children().click();
+    if (e.which == enterBtn && $options.children().length === 1) {
+        clickSearchItem()
         return;
-    } else if (e.which == 13) {
+    } else if (e.which == enterBtn) {
         return;
     }
     // check if input value is empty and reset inputval if so
     if ($(this).val() === "") {
         inputVal = "";
     }
-
     inputVal += String.fromCharCode(e.keyCode);
-    // Check if input val is empty or user deleted input
     searchFilter(inputVal);
 });
 
 
-
-
 function searchFilter(input) {
-    let items = $(".breeds").eq(0).children();
+    let items = $breeds.eq(0).children();
     // reset list items
     $options.empty();
     for (let i = 0; i < items.length; i++) {

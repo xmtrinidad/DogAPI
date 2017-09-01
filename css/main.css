@@ -165,6 +165,9 @@ section.dog_info {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
     align-items: center; } }
+footer {
+  border: 2px solid red; }
+
 html, body {
   height: 100%; }
 

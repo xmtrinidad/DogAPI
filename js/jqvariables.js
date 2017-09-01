@@ -1,4 +1,9 @@
 // Variables
+let $menu = $(".menu");
+let $closeBtn = $(".close_btn");
+let $overlay = $(".overlay");
+let $sideNav = $(".side_nav");
+let $main = $("main");
 let $breeds = $(".breeds");
 let $dogName = $("#dog_name");
 let $dogImg = $("#dog_img");

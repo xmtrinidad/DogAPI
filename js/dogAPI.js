@@ -43,17 +43,19 @@ function getDogInfo(dog) {
 }
 
 
-// get extract from API call
+// get extract and title from API call
 function extract(info) {
     let pageID = info.query.pageids[0];
     let extract = info.query.pages[pageID].extract;
     let title = info.query.pages[pageID].title;
     let extractSentences = extract.split(". ");
+    // Check if there is more than one sentence in dog info extract
     if (extractSentences.length > 1) {
         $dogInfo.text(`${extractSentences[0]}. ${extractSentences[1]}.`);
     } else {
         $dogInfo.text(`${extractSentences[0]}`);
     }
+    // assign href value to more info button
     $moreInfo.attr("href", `https://en.wikipedia.org/wiki/${title}`);
 }
 
